@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c8664a"/><stop offset="1" stop-color="#9c4430"/>
+    </linearGradient>
+    <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/><stop offset="1" stop-color="#f3ebdc"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- 日历纸 -->
+  <g transform="translate(256 268)">
+    <rect x="-128" y="-118" width="256" height="236" rx="34" fill="#7a3122" opacity=".35" transform="translate(6 10)"/>
+    <rect x="-128" y="-118" width="256" height="236" rx="34" fill="url(#pg)"/>
+    <path d="M-128 -84a34 34 0 0 1 34-34h188a34 34 0 0 1 34 34v18h-256z" fill="#2b2622"/>
+    <rect x="-74" y="-146" width="22" height="54" rx="11" fill="#fffdf8" stroke="#2b2622" stroke-width="8"/>
+    <rect x="52" y="-146" width="22" height="54" rx="11" fill="#fffdf8" stroke="#2b2622" stroke-width="8"/>
+    <path d="M-62 22 L-18 64 L70 -26" fill="none" stroke="#b5553c" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- 灵感星 -->
+  <path d="M392 112 l10 26 26 10 -26 10 -10 26 -10 -26 -26 -10 26 -10z" fill="#ffe7b0"/>
+</svg>
