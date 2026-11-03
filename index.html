@@ -11,6 +11,8 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#b5553c">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="论文打卡">
 <meta name="application-name" content="论文打卡">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,10 +28,27 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans SC",system-ui,sans-serif;font-size:15px;line-height:1.6}
 button{font:inherit}
-.layout{max-width:1240px;margin:0 auto;padding:26px 18px 60px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+.layout{max-width:1240px;margin:0 auto;padding:20px 18px 60px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
 main{min-width:0}
 header h1{font-family:"Noto Serif SC",serif;font-size:28px;margin:0 0 4px;letter-spacing:.5px}
 header p{margin:0;color:var(--muted);font-size:14px}
+
+/* ---- 顶栏 ---- */
+.tb{background:var(--accent);color:#fff;padding:18px 0 16px;padding-top:max(18px,env(safe-area-inset-top))}
+.tb-in{max-width:1240px;margin:0 auto;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.tb-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tb-title h1{font-family:"Noto Serif SC",serif;font-size:28px;margin:0;letter-spacing:1px}
+.tb-title span{font-size:13.5px;opacity:.82}
+.tb-row2{margin-top:14px;justify-content:flex-start}
+.seg{display:inline-flex;background:rgba(255,255,255,.18);border-radius:40px;padding:5px;gap:4px}
+.seg button{border:0;background:transparent;color:#fff;font-size:16px;font-weight:500;padding:9px 26px;border-radius:30px;cursor:pointer;opacity:.85}
+.seg button.on{background:#fff;color:var(--accent);opacity:1;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.tb-note{font-size:13px;opacity:.85;display:flex;align-items:center;gap:6px}
+.tb-note i{width:8px;height:8px;border-radius:50%;background:#f4b860;display:inline-block}
+.tb-run{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--accent);border:0;border-radius:30px;padding:8px 16px;cursor:pointer;font-weight:500}
+.tb-run i{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:pulse 1.4s infinite}
+.tb-run b{font-family:var(--mono)}
+@keyframes pulse{50%{opacity:.25}}
 
 /* ---- 倒计时（右上） ---- */
 aside{position:sticky;top:16px;display:flex;flex-direction:column;gap:10px}
@@ -69,7 +88,7 @@ aside{position:sticky;top:16px;display:flex;flex-direction:column;gap:10px}
 .running-box button{margin-top:6px;border:0;border-radius:8px;padding:4px 10px;cursor:pointer}
 
 /* ---- 标签 ---- */
-.tabs{display:flex;gap:4px;margin:20px 0 18px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px;margin:0 0 18px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
 .tab{border:0;background:none;padding:9px 12px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;text-align:left}
 .tab b{display:block;font-family:"Noto Serif SC",serif;font-size:15.5px}
 .tab small{font-size:11.5px}
@@ -109,6 +128,13 @@ aside{position:sticky;top:16px;display:flex;flex-direction:column;gap:10px}
 .hedit{border:1px solid var(--line);background:#fffefb;color:var(--accent);border-radius:8px;width:28px;height:28px;cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
 .hedit:hover{background:var(--soft);border-color:var(--accent)}
 .ph{color:var(--muted);font-style:italic;font-weight:400}
+.backfill{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--paper);border-radius:10px;padding:8px 10px;margin:4px 0 10px}
+.backfill .bf-l{font-size:13px;color:var(--muted);font-weight:500}
+.backfill select,.backfill input{font:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:#fffefb;color:var(--ink)}
+.backfill select{max-width:230px;flex:1 1 160px}
+.backfill .bf-new{flex:1 1 160px}
+.backfill .bf-min{width:150px;flex:0 1 150px}
+.backfill .bf-btn{padding:6px 14px}
 .ed-label{font-size:12.5px;color:var(--muted);font-weight:500;margin-top:12px}
 .ed-row textarea{min-height:44px}
 .chev{transition:transform .2s;color:var(--muted)}
@@ -169,16 +195,21 @@ table.rv .tk{color:var(--muted);font-size:12.5px}
 .empty{color:var(--muted);text-align:center;padding:30px 0}
 .backup{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-top:28px;font-size:13px;color:var(--muted)}
 .backup .btn{padding:6px 14px;font-size:13px}
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:30px;font-size:13px;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:30px;font-size:13px;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 
 @media (max-width:980px){
   .layout{grid-template-columns:1fr}
   aside{position:static;order:-1;display:grid;grid-template-columns:repeat(2,1fr)}
-  aside .cd-title,aside .side-note,aside .today-btn,aside .lock-btn,aside .running-box{grid-column:1/-1}
+  aside .cd-title{grid-column:1/-1}
+  aside .running-box,aside .side-note{display:none}
+  aside{gap:8px}
+  .cd{padding:10px 12px}
   .cd .big{font-size:24px}.cd.next .big{font-size:28px}
 }
 @media (max-width:640px){
+  .tb-title h1{font-size:23px}
+  .seg button{padding:8px 20px;font-size:15px}
   .hero{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .dbody{padding-left:14px}
@@ -189,6 +220,7 @@ table.rv .tk{color:var(--muted);font-size:12.5px}
 </style>
 </head>
 <body>
+<div id="topbar"></div>
 <div class="layout">
   <main id="main"></main>
   <aside id="aside"></aside>
@@ -309,16 +341,30 @@ var editSet={}, editingCd=null;
 
 function setAccent(k){ var c=k==="review"?"rev":k; document.documentElement.style.setProperty("--accent","var(--"+c+")"); document.documentElement.style.setProperty("--soft","var(--"+c+"s)"); }
 
+var lastPlan=(function(){ try{ return sessionStorage.getItem("tc-lastplan"); }catch(e){ return null; } })();
 function render(){
   setAccent(current);
-  var h='<header><h1>论文写作打卡</h1><p>第五章 → 第六章讨论 → 结论 → 缓冲整合 &nbsp;|&nbsp; 2026.11.2 – 2027.1.15</p></header><nav class="tabs">';
-  ["ch5","disc","conc","buf"].forEach(function(k){ var s=STAGES[k], st=stats(k), a=md(s.start), b=md(s.end);
-    h+='<button class="tab'+(current===k?' on':'')+'" data-tab="'+k+'"><b>'+s.name+'</b><small>'+a.m+'.'+a.d+'–'+b.m+'.'+b.d+' · 打卡 '+st.checked+'/'+st.total+'</small></button>'; });
-  h+='<button class="tab'+(current==="review"?' on':'')+'" data-tab="review"><b>⏱ 复盘</b><small>用时 · 灵感 · 反思</small></button></nav>';
+  if(STAGES[current]){ lastPlan=current; try{ sessionStorage.setItem("tc-lastplan",current); }catch(e){} }
+  renderTopbar();
+  var h='';
+  if(current!=="review"){
+    h+='<nav class="tabs">';
+    ["ch5","disc","conc","buf"].forEach(function(k){ var s=STAGES[k], st=stats(k), a=md(s.start), b=md(s.end);
+      h+='<button class="tab'+(current===k?' on':'')+'" data-tab="'+k+'"><b>'+s.name+'</b><small>'+a.m+'.'+a.d+'–'+b.m+'.'+b.d+' · 打卡 '+st.checked+'/'+st.total+'</small></button>'; });
+    h+='</nav>';
+  }
   h+= current==="review"?renderReview():renderStage(current);
   h+='<div class="backup"><span id="savemsg">记录自动保存在当前浏览器</span><button class="btn ghost" data-act="export">导出备份</button><label class="btn ghost">导入备份<input type="file" id="importfile" accept=".json,application/json" hidden></label></div>';
   mainEl.innerHTML=h;
   renderAside();
+}
+function renderTopbar(){
+  var R=state.running, run='';
+  if(R){ var t=tasksOf(R.date).filter(function(x){return x.id===R.id;})[0];
+    if(t) run='<button class="tb-run" data-act="timer" data-d="'+R.date+'" data-id="'+R.id+'" title="点击暂停"><i></i><span class="tb-rn">'+esc(t.t.length>10?t.t.slice(0,10)+'…':t.t)+'</span><b data-runclock2>'+fmt(taskSecs(R.date,t))+'</b></button>'; }
+  var plan=current!=="review";
+  document.getElementById("topbar").innerHTML='<div class="tb"><div class="tb-in"><div class="tb-title"><h1>论文写作打卡</h1><span>第五章 → 讨论 → 结论 → 缓冲</span></div>'+run+'</div>'+
+    '<div class="tb-in tb-row2"><nav class="seg"><button class="'+(plan?'on':'')+'" data-tab="plan">📅 计划</button><button class="'+(plan?'':'on')+'" data-tab="review">⏱ 复盘</button></nav><span class="tb-note"><i></i>只存在这个浏览器</span></div></div>';
 }
 function renderStage(key){
   var s=STAGES[key], st=stats(key), ds=stageDays(key);
@@ -365,7 +411,16 @@ function renderDay(p){
     }
   });
   if(!ts.length&&!ed) h+='<li class="task"><span class="tt ph">还没有任务，点下方「✏️ 修改内容 / 任务」添加</span></li>';
-  h+='</ul><div class="ed-actions">';
+  h+='</ul>';
+  if(!ed){
+    h+='<div class="backfill"><span class="bf-l">⏱ 补记用时</span><select data-bf-task="'+date+'">';
+    ts.forEach(function(t){ h+='<option value="'+t.id+'">'+esc(t.t.length>22?t.t.slice(0,22)+'…':t.t)+'</option>'; });
+    h+='<option value="__new"'+(ts.length?'':' selected')+'>＋ 新建一项…</option></select>'+
+       '<input type="text" class="bf-new" data-bf-name="'+date+'" placeholder="新事项名称，如 小论文修改"'+(ts.length?' hidden':'')+'>'+
+       '<input type="text" class="bf-min" data-bf-min="'+date+'" inputmode="decimal" placeholder="时长：90 / 1:30 / 1.5h">'+
+       '<button class="btn bf-btn" data-act="bf" data-d="'+date+'">补记</button></div>';
+  }
+  h+='<div class="ed-actions">';
   if(ed){
     h+='<button class="mini" data-act="tadd" data-d="'+date+'">+ 添加任务</button><button class="mini" data-act="tpaper" data-d="'+date+'">+ 小论文修改</button><button class="mini grey" data-act="reset" data-d="'+date+'">清空本日计划</button><button class="mini solid" data-act="edit" data-d="'+date+'">✓ 完成编辑</button>';
   } else {
@@ -454,6 +509,7 @@ function tick(){
   var s=fmt(taskSecs(R.date,t));
   var c=mainEl.querySelector('[data-clock="'+R.date+'|'+R.id+'"]'); if(c) c.textContent=s;
   var rc=asideEl.querySelector('[data-runclock]'); if(rc) rc.textContent=s;
+  var rc2=document.querySelector('[data-runclock2]'); if(rc2) rc2.textContent=s;
   var dt=mainEl.querySelector('[data-daytime="'+R.date+'"]'); if(dt) dt.textContent='● '+fmt(daySecs(R.date));
 }
 setInterval(tick,1000);
@@ -468,7 +524,7 @@ function rerender(){ var y=window.scrollY; render(); window.scrollTo(0,y); }
    ========================================================= */
 document.addEventListener("click",function(e){
   var el=e.target.closest("[data-act],[data-tab],[data-toggle]"); if(!el) return;
-  if(el.dataset.tab){ current=el.dataset.tab; try{ history.replaceState(null,"","#"+current); }catch(_){} render(); window.scrollTo(0,0); return; }
+  if(el.dataset.tab){ current=el.dataset.tab==="plan"?(lastPlan&&STAGES[lastPlan]?lastPlan:stageOfToday()):el.dataset.tab; try{ history.replaceState(null,"","#"+current); }catch(_){} render(); window.scrollTo(0,0); return; }
   if(el.dataset.toggle){ var d=el.dataset.toggle, art=el.parentNode, i=openSet.indexOf(d);
     if(i>=0){ openSet.splice(i,1); art.classList.remove("open"); } else { openSet.push(d); art.classList.add("open"); }
     saveOpen(); return; }
@@ -494,6 +550,7 @@ document.addEventListener("click",function(e){
     if(openSet.indexOf(TODAY)<0){ openSet.push(TODAY); saveOpen(); } render();
     var te=document.getElementById("d-"+TODAY); if(te) te.scrollIntoView({behavior:"smooth",block:"start"}); return; }
   if(act==="export"){ exportData(); return; }
+  if(act==="bf"){ doBackfill(D); return; }
   if(act==="locknow"){ persist(true); window.__lockNow(); return; }
 });
 // 二次确认（页面内，不用弹窗）
@@ -510,6 +567,7 @@ document.addEventListener("dblclick",function(e){
 document.addEventListener("change",function(e){
   var el=e.target;
   if(el.id==="importfile"){ importData(el.files[0]); el.value=""; return; }
+  if(el.dataset.bfTask){ var nmi=document.querySelector('[data-bf-name="'+el.dataset.bfTask+'"]'); if(nmi){ nmi.hidden=el.value!=="__new"; if(!nmi.hidden) nmi.focus(); } return; }
   if(el.dataset.act==="tdone"){ var D=el.dataset.d, ts=mtasks(D), t=ts.filter(function(x){return x.id===el.dataset.id;})[0];
     if(t){ t.done=el.checked; if(t.done&&state.running&&state.running.date===D&&state.running.id===t.id) stopRunning(); }
     var r=rec(D); if(ts.length&&ts.every(function(x){return x.done;})&&!r.checked){ r.checked=true; toast("今日任务全部完成，已自动打卡 🎉"); }
@@ -528,8 +586,30 @@ document.addEventListener("input",function(e){
     if(c[2]==="t") t.t=el.value; else { var mins=Math.max(0,+el.value||0); if(state.running&&state.running.date===c[0]&&state.running.id===c[1]) state.running.start=Date.now(); t.secs=mins*60; }
     persist(); }
 });
+document.addEventListener("keydown",function(e){ var el=e.target; if(e.key==="Enter"&&el.dataset&&(el.dataset.bfMin||el.dataset.bfName)){ e.preventDefault(); doBackfill(el.dataset.bfMin||el.dataset.bfName); } });
 window.addEventListener("hashchange",function(){ var h=location.hash.slice(1); if((STAGES[h]||h==="review")&&h!==current){ current=h; render(); } });
 window.addEventListener("pagehide",function(){ persist(true); });
+
+/* ---------- 补记用时 ---------- */
+function parseDur(v){
+  v=String(v||"").trim().toLowerCase().replace(/：/g,":").replace(/\s/g,"");
+  if(!v) return 0; var m;
+  if((m=v.match(/^(\d+):(\d{1,2})$/))) return (+m[1])*60+(+m[2]);
+  if((m=v.match(/^(\d+(?:\.\d+)?)(h|小时|时)(?:(\d+)(m|min|分钟|分)?)?$/))) return Math.round(parseFloat(m[1])*60)+(m[3]?+m[3]:0);
+  if((m=v.match(/^(\d+(?:\.\d+)?)(m|min|分钟|分)?$/))) return Math.round(parseFloat(m[1]));
+  return NaN;
+}
+function doBackfill(D){
+  var sel=document.querySelector('[data-bf-task="'+D+'"]'), mi=document.querySelector('[data-bf-min="'+D+'"]'), nm=document.querySelector('[data-bf-name="'+D+'"]');
+  var mins=parseDur(mi.value);
+  if(!mins||isNaN(mins)||mins<=0){ toast("请填时长，例如 90、1:30 或 1.5h"); mi.focus(); return; }
+  var ts=mtasks(D), t;
+  if(sel.value==="__new"){ var name=(nm.value||"").trim()||"补记事项"; t={id:uid(),t:name,done:false,secs:0}; ts.push(t); }
+  else t=ts.filter(function(x){return x.id===sel.value;})[0];
+  if(!t) return;
+  t.secs=(t.secs||0)+mins*60; persist(true); rerender();
+  toast("已补记 "+fmtHM(mins*60)+" → "+(t.t.length>14?t.t.slice(0,14)+"…":t.t));
+}
 
 /* ---------- 导出 / 导入 ---------- */
 function exportData(){
@@ -573,7 +653,7 @@ function mergePlan(plan){
 }
 function isUnlocked(){ try{ return localStorage.getItem(UNLOCK_KEY)==="1"||sessionStorage.getItem(UNLOCK_KEY)==="1"; }catch(e){ return false; } }
 function showLock(){
-  document.querySelector(".layout").style.display="none";
+  document.querySelector(".layout").style.display="none"; document.getElementById("topbar").style.display="none";
   var w=document.createElement("div"); w.className="lock"; w.id="lock";
   w.innerHTML='<form class="lockbox" autocomplete="off"><img src="favicon.svg" alt="" width="64" height="64"><h2>论文写作打卡</h2><p>请输入密码解锁</p>'+
     '<input type="password" id="lockpw" inputmode="numeric" placeholder="密码" autofocus>'+
@@ -588,7 +668,7 @@ function showLock(){
     decryptPlan(pw).then(function(plan){
       mergePlan(plan);
       try{ if(document.getElementById("lockrem").checked) localStorage.setItem(UNLOCK_KEY,"1"); else sessionStorage.setItem(UNLOCK_KEY,"1"); }catch(_){}
-      w.remove(); document.querySelector(".layout").style.display=""; render();
+      w.remove(); document.querySelector(".layout").style.display=""; document.getElementById("topbar").style.display=""; render();
     }).catch(function(){
       btn.disabled=false; btn.textContent="解锁"; msg.textContent="密码不对，再试一次";
       var i=document.getElementById("lockpw"); i.select();
@@ -599,6 +679,7 @@ function showLock(){
 window.__lockNow=function(){ try{ localStorage.removeItem(UNLOCK_KEY); sessionStorage.removeItem(UNLOCK_KEY); }catch(e){} location.reload(); };
 if(!window.crypto||!crypto.subtle){ render(); toast("当前环境不支持解锁，请用 https 网址打开"); }
 else if(isUnlocked()) render(); else showLock();
+if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
 })();
 </script>
 </body>
