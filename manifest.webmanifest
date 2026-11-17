@@ -29,9 +29,5 @@
     }
   ],
   "id": "./",
-  "display_override": [
-    "standalone",
-    "minimal-ui"
-  ],
   "orientation": "any"
 }
